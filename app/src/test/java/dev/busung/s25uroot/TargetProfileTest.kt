@@ -28,37 +28,9 @@ class TargetProfileTest {
     }
 
     @Test
-    fun s918nProfileOnlyMatchesItsExactFirmware() {
-        val s918n = TargetProfile(
-            profileId = "dm3q-S918NKSS8FZG1-ksunext",
-            displayName = "Galaxy S23 Ultra SM-S918N",
-            models = setOf("SM-S918N"),
-            kernelVersions = setOf("5.15.189"),
-            exploit = RemoteArtifact("asset://exploit", 1),
-            kernelSu = RemoteArtifact("asset://ksud", 1),
-            helper = RemoteArtifact("asset://helper", 1),
-            buildDisplays = setOf("BP4A.251205.006.S918NKSS8FZG1"),
-            fingerprints = setOf(
-                "samsung/dm3qksx/dm3q:16/BP4A.251205.006/S918NKSS8FZG1:user/release-keys",
-            ),
-            kernelReleases = setOf("5.15.189-android13-8-33413713-abS918NKSS8FZG1"),
-        )
-        val exact = snapshot(
-            model = "SM-S918N",
-            kernelRelease = "5.15.189-android13-8-33413713-abS918NKSS8FZG1",
-            buildId = "BP4A.251205.006.S918NKSS8FZG1",
-            fingerprint = "samsung/dm3qksx/dm3q:16/BP4A.251205.006/S918NKSS8FZG1:user/release-keys",
-        )
-
-        assertTrue(s918n.matches(exact))
-        assertFalse(s918n.matches(exact.copy(buildId = "BP4A.251205.006.S918NKSS8FZH3")))
-        assertFalse(s918n.matches(exact.copy(model = "SM-S918B")))
-    }
-
-    @Test
     fun s918nFzh2ProfileMatchesConnectedDeviceSnapshot() {
         val profile = TargetProfile(
-            profileId = "dm3q-S918NKSS8FZH2-ksunext",
+            profileId = "dm3q-S918NKSS8FZH2-kernelsu",
             displayName = "Galaxy S23 Ultra SM-S918N FZH2",
             models = setOf("SM-S918N"),
             kernelVersions = setOf("5.15.189"),

@@ -1,53 +1,14 @@
-# Root My Galaxy SM-S918B / SM-S918N
+# Root My Galaxy SM-S918N
 
-Root My Galaxy v0.4.0 brings KernelSU Next support and exact firmware-profile
-selection to the Samsung Galaxy S23 Ultra `SM-S918B` and `SM-S918N` (`dm3q`). This repository
-contains the Android app, target configuration, porting sources, patches, and
-build tools for the project.
+SM-S918N-only Root My Galaxy port for the exact Korean FZH2 firmware profile.
+The app uses the official KernelSU userspace contract and refuses every other
+model, build, fingerprint, or kernel version.
 
 [Releases](https://github.com/trick21sh/Root-My-Galaxy-SM-S918N/releases) ·
-[Documentation](docs/README.md)
+[FZH2 target](docs/TARGET_SM_S918N_FZH2.md) ·
+[Official KernelSU](https://github.com/tiann/KernelSU)
 
-Use this only on devices you own or are explicitly authorized to test.
-
-# Root My Galaxy v0.4.0 is here
-
-## Firmware support added in v0.4.0
-
-- New support for firmware `S918BXXSAFZH3`.
-- Security patch level: `05/08/2026`.
-- The previous `S918BXXSAFZG1` payload remains bundled for older compatible
-  devices.
-
-## Now with KernelSU Next support
-
-<table>
-  <tr>
-    <td align="center"><strong>Root My Galaxy app</strong></td>
-    <td align="center"><strong>KernelSU Next</strong></td>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="docs/assets/screenshots/root-my-galaxy-v0.3.0.jpg" alt="Root My Galaxy running on the SM-S918B" width="360">
-    </td>
-    <td align="center">
-      <img src="docs/assets/screenshots/kernelsu-next-v3.3.0.jpg" alt="KernelSU Next v3.3.0 working on the SM-S918B" width="360">
-    </td>
-  </tr>
-</table>
-
-## Validated Target
-
-```text
-model: SM-S918B
-device: dm3q
-build display: BP4A.251205.006.S918BXXSAFZH3
-fingerprint: samsung/dm3qxxx/dm3q:16/BP4A.251205.006/S918BXXSAFZH3:user/release-keys
-kernel release: 5.15.189-android13-8-33413713-abS918BXXSAFZH3
-kernel build: #1 SMP PREEMPT Tue Aug 11 06:33:52 UTC 2026
-```
-
-The Korean `SM-S918N` port is locked to this exact connected-device profile:
+## Exact supported target
 
 ```text
 model: SM-S918N
@@ -58,106 +19,39 @@ kernel release: 5.15.189-android13-8-33413713-abS918NKSS8FZH2
 kernel build: #1 SMP PREEMPT Tue Aug 11 06:15:40 UTC 2026
 ```
 
-See [SM-S918N FZH2 Port](docs/TARGET_SM_S918N_FZH2.md) for the recovered
-offsets, artifact hashes, and validation status.
+Only the exact FZH2 profile is bundled.
 
-## Prerequisites
+## KernelSU
 
-Before running the port, make sure the phone is ready:
+The bundled late-load userspace is the Samsung-targeted official KernelSU
+v3.2.5 build. The APK opens the official Manager package
+`me.weishu.kernelsu` and checks KernelSU activation through the official
+driver `ioctl`/legacy `prctl` protocol, not by looking for a different
+package or merely checking a filesystem path.
 
-1. **Enable Developer options and USB debugging**.
-2. **Enable "Disable child process restrictions"** in Developer options
-   (wording varies by One UI version; it sits next to the USB debugging
-   toggles). Shizuku needs this to spawn the helper processes the port
-   relies on.
-3. **Install [Shizuku](https://shizuku.rikka.app/).** It performs the
-   privileged operations this app needs, without a full root shell.
-4. **Reboot the phone.** A clean boot avoids stale permission/service state
-   and makes the whole flow work on the first try.
-5. **Close every other app and background process.** Keep only Shizuku and
-   Root My Galaxy running.
-6. **Start the Shizuku service**
-7. **Open Root My Galaxy** and grant it permission when Shizuku prompts.
+## Safety
 
-The script prints the manual ADB test commands at the end. It does not open a
-root shell automatically.
+The exploit and late-load path can reboot the phone on an incompatible or
+unstable target. Use only on hardware you own or are authorized to test, keep
+the exact FZH2 stock firmware ready for recovery, and do not retry after a
+kernel panic without collecting logs.
 
-## Documentation
+## Build
 
-- [Documentation Index](docs/README.md): all detailed project docs.
-- [Target Profile](docs/TARGET.md): exact device and firmware values expected by this port.
-- [SM-S918N FZH2 Port](docs/TARGET_SM_S918N_FZH2.md): exact Korean firmware profile and artifacts.
-- [Project Structure](docs/PROJECT_STRUCTURE.md): what each directory contains.
-- [Reproduce The Port](docs/REPRODUCE_PORT.md): full payload generation flow.
-- [Build, Install, And ADB](docs/BUILD_INSTALL_ADB.md): app build, install, staging, and manual test commands.
-- [Troubleshooting](docs/TROUBLESHOOTING.md): common failures and how to diagnose them.
-
-Upstream reference material is also kept in:
-
-- [PORTING.md](PORTING.md)
-- [PROJECT-MANIFEST.txt](PROJECT-MANIFEST.txt)
-- [kernelsu/README.md](kernelsu/README.md)
-- [KernelSU Next AFZG1](kernelsu-next/README.md)
-- [support/README.md](support/README.md)
-
-
-## Quick Start
-
-The Android app uses KernelSU Next v3.3.0 with a profile selected from the
-detected firmware. `S918BXXSAFZG1`, `S918BXXSAFZH3`, and `S918NKSS8FZH2` have version-locked
-payloads and helpers; see [KernelSU Next AFZG1](kernelsu-next/README.md).
-
-From the repository root:
-
-```sh
-./tools/port-sm-s918b-afzf5.sh
+```powershell
+.\\gradlew.bat test :app:assembleRelease --no-daemon
 ```
 
-Build the debug APK:
+The release APK is unsigned by Gradle; sign it with your own key before
+distribution. The project test APK is not an official KernelSU release.
 
-```sh
-./tools/port-sm-s918b-afzf5.sh --build-apk
-```
-
-Build, install, and stage local ADB files:
-
-```sh
-./tools/port-sm-s918b-afzf5.sh --all
-```
-
-
-## Important Files
+## Important files
 
 ```text
-tools/port-sm-s918b-afzf5.sh
-tools/f731u-to-dm3q-s918b-afzf5.spec.json
-tools/patch_payload.py
 app/src/main/assets/targets-v3.json
+app/src/main/assets/cve-2026-43499-app-s918n-fzh2.so
+app/src/main/assets/ksud-kernelsu-s918n-fzh2
+app/src/main/assets/libcve43499root-s918n-fzh2.so
 RootMyGalaxyDesktop/assets/profiles.json
-src/targets/dm3q-S918BXXSAFZF5/target.h
-src/targets/dm3q-S918BXXSAFZF5/p0_fingerprint.h
+tools/f731u-to-dm3q-s918n-fzh2.spec.json
 ```
-
-## Credits And Base Repository
-
-This SM-S918B port is based on
-[youyoudezhuzhu/rmg-f731u](https://github.com/youyoudezhuzhu/rmg-f731u), the
-Root-My-Galaxy F731U Z Flip5 payloads + APK repository.
-
-Credit goes to that project for the F731U app/payload baseline, closed helper
-flow, KernelSU late-load packaging, support manifest structure, and the porting
-procedure used as the starting point for this SM-S918B adaptation.
-
-This repository is an adaptation for `SM-S918B` and `SM-S918N` / `dm3q` with
-version-locked firmware profiles, not the original F731U target.
-
-## 🇧🇷 É Brazuca também? 
-
-Deixe um apoio usando Pix 💙
-
-Sua ajuda motiva expandir esse trabalho pra novos devices, e é um jeito de
-agradecer pelas noites sem dormir por trás desse port :)
-
-<p align="center">
-  <img src="docs/assets/screenshots/PixApoiaOBrazuca.png" alt="QR Code Pix para apoiar o projeto" width="220">
-</p>

@@ -6,6 +6,7 @@
 #include <linux/perf_event.h>
 #include <stdio.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
@@ -257,32 +258,36 @@ Java_dev_busung_s25uroot_NativeProbe_isKernelSuActive(JNIEnv *env,
   (void)env;
   (void)thiz;
 
-  if (access("/sys/module/kernelsu", F_OK) == 0) {
-    return JNI_TRUE;
-  }
-
-  int fd = open("/proc/modules", O_RDONLY | O_CLOEXEC);
-  if (fd < 0) {
-    return JNI_FALSE;
-  }
-
-  char modules[65536];
-  ssize_t count = read(fd, modules, sizeof(modules) - 1);
-  close(fd);
-  if (count <= 0) {
-    return JNI_FALSE;
-  }
-  modules[count] = '\0';
-
-  const char *line = modules;
-  while (line != NULL && *line != '\0') {
-    if (strncmp(line, "kernelsu ", sizeof("kernelsu ") - 1) == 0) {
+  const uint32_t magic1 = 0xDEADBEEF;
+  const uint32_t magic2 = 0xCAFEBABE;
+  int driver_fd = -1;
+  syscall(SYS_reboot, magic1, magic2, 0, &driver_fd);
+  if (driver_fd >= 0) {
+    struct {
+      uint32_t version;
+      uint32_t flags;
+      uint32_t features;
+      uint32_t uapi_version;
+    } info = {0};
+    if (ioctl(driver_fd, 0x80104b02, &info) == 0 && info.version != 0) {
+      close(driver_fd);
       return JNI_TRUE;
     }
-    line = strchr(line, '\n');
-    if (line != NULL) {
-      ++line;
+    struct {
+      uint32_t version;
+      uint32_t flags;
+      uint32_t features;
+    } legacy = {0};
+    if (ioctl(driver_fd, 0x80004b02, &legacy) == 0 && legacy.version != 0) {
+      close(driver_fd);
+      return JNI_TRUE;
     }
+    close(driver_fd);
   }
-  return JNI_FALSE;
+
+  int32_t version = 0;
+  int32_t flags = 0;
+  int32_t result = 0;
+  syscall(SYS_prctl, 0xDEADBEEF, 2, &version, &flags, &result);
+  return version != 0 ? JNI_TRUE : JNI_FALSE;
 }

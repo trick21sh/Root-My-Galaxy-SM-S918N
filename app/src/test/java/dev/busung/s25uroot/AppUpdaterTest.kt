@@ -12,7 +12,7 @@ class AppUpdaterTest {
 
     @Test
     fun sameReleaseWithPrefixAndSuffixIsNotAnUpdate() {
-        assertFalse(AppUpdater.isUpdateAvailable("v0.3.0-afzg1", "0.3.0"))
+        assertFalse(AppUpdater.isUpdateAvailable("v0.5.2-fzh2", "0.5.2"))
     }
 
     @Test

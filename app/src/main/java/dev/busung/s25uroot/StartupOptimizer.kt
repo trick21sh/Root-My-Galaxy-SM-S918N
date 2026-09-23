@@ -43,6 +43,6 @@ object StartupOptimizer {
     private const val SUCCESS = "ok"
     private const val FAILURE = "failed"
     private const val SHIZUKU_PACKAGE = "moe.shizuku.manager"
-    private const val KSU_MANAGER_PACKAGE = "com.rifsxd.ksunext"
+    private const val KSU_MANAGER_PACKAGE = "me.weishu.kernelsu"
     private val PACKAGE_NAME = Regex("[A-Za-z0-9_]+(\\.[A-Za-z0-9_]+)+")
 }

@@ -5,7 +5,7 @@
     <string name="nav_history">Tarix</string>
     <string name="nav_settings">Sozlamalar</string>
     <string name="install_confirm_title">KernelSU o\'rnatilsinmi?</string>
-    <string name="install_confirm_body">Ilova qurilma va proshivkani tekshiradi, so\'ngra ilovaga o\'rnatilgan mos payloadni tayyorlab, KernelSU Next bilan eksploytni ishga tushiradi.</string>
+    <string name="install_confirm_body">Ilova qurilma va proshivkani tekshiradi, so\'ngra ilovaga o\'rnatilgan mos payloadni tayyorlab, KernelSU bilan eksploytni ishga tushiradi.</string>
     <string name="action_confirm">Tasdiqlash</string>
     <string name="action_cancel">Bekor qilish</string>
     <string name="action_close">Yopish</string>

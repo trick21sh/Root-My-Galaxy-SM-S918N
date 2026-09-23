@@ -37,7 +37,7 @@ The reproducible patch is in
 ```text
 01A4FFCE3CC0570C3CA3B363E7D772D762335A311FC2C5C45CD509BDE74DD47B  cve-2026-43499-app-s918n-fzh2.so
 52123F612890D688C9AD935B8F4114A64C1DC63A157E225592FD7BAB007298F5  libcve43499root-s918n-fzh2.so
-11329C52ADF28130D75290BD095FB6831C0682F85817534A531C773933AEFE8E  ksud-f731u-kdp-s918n-fzg1
+11329C52ADF28130D75290BD095FB6831C0682F85817534A531C773933AEFE8E  ksud-kernelsu-s918n-fzh2
 ```
 
 ## Validation Performed
@@ -46,5 +46,8 @@ The reproducible patch is in
 - APK installed and launched on the connected device without a Java crash.
 - The FZH2 native helper returned
   `target profile=dm3q-S918NKSS8FZH2 validated` on the connected device.
-- The exploit and KernelSU late-load were intentionally not executed during
-  safe validation because a kernel panic or reboot cannot be ruled out.
+- The exact-target helper probe passed, but the first real exploit attempt on
+  the connected phone caused an immediate reboot. The payload is therefore
+  not considered hardware-validated and must not be retried without a new
+  investigation.
+- Reboot returned the phone to Android; no boot image was flashed.

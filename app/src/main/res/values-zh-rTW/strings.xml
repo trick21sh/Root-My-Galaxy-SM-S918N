@@ -5,8 +5,8 @@
     <string name="nav_history">執行紀錄</string>
     <string name="nav_settings">設定</string>
 
-    <string name="install_confirm_title">安裝 KernelSU Next？</string>
-    <string name="install_confirm_body">應用程式將驗證裝置與韌體，準備應用程式內建的相容 payload，然後使用 KernelSU Next 執行 exploit。</string>
+    <string name="install_confirm_title">安裝 KernelSU？</string>
+    <string name="install_confirm_body">應用程式將驗證裝置與韌體，準備應用程式內建的相容 payload，然後使用 KernelSU 執行 exploit。</string>
 
     <string name="action_confirm">確認</string>
     <string name="action_cancel">取消</string>
