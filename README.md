@@ -8,6 +8,12 @@ model, build, fingerprint, or kernel version.
 [FZH2 target](docs/TARGET_SM_S918N_FZH2.md) ·
 [Official KernelSU](https://github.com/tiann/KernelSU)
 
+## Screenshots
+
+| Root My Galaxy | KernelSU |
+| --- | --- |
+| ![Root My Galaxy on SM-S918N FZH2](docs/assets/screenshots/root-my-galaxy-s918n-fzh2.png) | ![KernelSU active on SM-S918N FZH2](docs/assets/screenshots/kernelsu-s918n-fzh2.png) |
+
 ## Exact supported target
 
 ```text
