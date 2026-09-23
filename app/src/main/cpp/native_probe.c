@@ -6,7 +6,6 @@
 #include <linux/perf_event.h>
 #include <stdio.h>
 #include <string.h>
-#include <sys/ioctl.h>
 #include <sys/mman.h>
 #include <sys/syscall.h>
 #include <sys/types.h>
@@ -257,33 +256,6 @@ Java_dev_busung_s25uroot_NativeProbe_isKernelSuActive(JNIEnv *env,
                                                        jobject thiz) {
   (void)env;
   (void)thiz;
-
-  const uint32_t magic1 = 0xDEADBEEF;
-  const uint32_t magic2 = 0xCAFEBABE;
-  int driver_fd = -1;
-  syscall(SYS_reboot, magic1, magic2, 0, &driver_fd);
-  if (driver_fd >= 0) {
-    struct {
-      uint32_t version;
-      uint32_t flags;
-      uint32_t features;
-      uint32_t uapi_version;
-    } info = {0};
-    if (ioctl(driver_fd, 0x80104b02, &info) == 0 && info.version != 0) {
-      close(driver_fd);
-      return JNI_TRUE;
-    }
-    struct {
-      uint32_t version;
-      uint32_t flags;
-      uint32_t features;
-    } legacy = {0};
-    if (ioctl(driver_fd, 0x80004b02, &legacy) == 0 && legacy.version != 0) {
-      close(driver_fd);
-      return JNI_TRUE;
-    }
-    close(driver_fd);
-  }
 
   int32_t version = 0;
   int32_t flags = 0;
