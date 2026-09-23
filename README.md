@@ -1,11 +1,11 @@
-# Root My Galaxy SM-S918B
+# Root My Galaxy SM-S918B / SM-S918N
 
 Root My Galaxy v0.4.0 brings KernelSU Next support and exact firmware-profile
-selection to the Samsung Galaxy S23 Ultra `SM-S918B` (`dm3q`). This repository
+selection to the Samsung Galaxy S23 Ultra `SM-S918B` and `SM-S918N` (`dm3q`). This repository
 contains the Android app, target configuration, porting sources, patches, and
 build tools for the project.
 
-[Releases](https://github.com/soumarcelino/Root-My-Galaxy-SM-S918B/releases) ·
+[Releases](https://github.com/trick21sh/Root-My-Galaxy-SM-S918N/releases) ·
 [Documentation](docs/README.md)
 
 Use this only on devices you own or are explicitly authorized to test.
@@ -47,6 +47,20 @@ kernel release: 5.15.189-android13-8-33413713-abS918BXXSAFZH3
 kernel build: #1 SMP PREEMPT Tue Aug 11 06:33:52 UTC 2026
 ```
 
+The Korean `SM-S918N` port is locked to this exact connected-device profile:
+
+```text
+model: SM-S918N
+device: dm3q
+build display: BP4A.251205.006.S918NKSS8FZH2
+fingerprint: samsung/dm3qksx/dm3q:16/BP4A.251205.006/S918NKSS8FZH2:user/release-keys
+kernel release: 5.15.189-android13-8-33413713-abS918NKSS8FZH2
+kernel build: #1 SMP PREEMPT Tue Aug 11 06:15:40 UTC 2026
+```
+
+See [SM-S918N FZH2 Port](docs/TARGET_SM_S918N_FZH2.md) for the recovered
+offsets, artifact hashes, and validation status.
+
 ## Prerequisites
 
 Before running the port, make sure the phone is ready:
@@ -72,6 +86,7 @@ root shell automatically.
 
 - [Documentation Index](docs/README.md): all detailed project docs.
 - [Target Profile](docs/TARGET.md): exact device and firmware values expected by this port.
+- [SM-S918N FZH2 Port](docs/TARGET_SM_S918N_FZH2.md): exact Korean firmware profile and artifacts.
 - [Project Structure](docs/PROJECT_STRUCTURE.md): what each directory contains.
 - [Reproduce The Port](docs/REPRODUCE_PORT.md): full payload generation flow.
 - [Build, Install, And ADB](docs/BUILD_INSTALL_ADB.md): app build, install, staging, and manual test commands.
@@ -89,7 +104,7 @@ Upstream reference material is also kept in:
 ## Quick Start
 
 The Android app uses KernelSU Next v3.3.0 with a profile selected from the
-detected firmware. Both `S918BXXSAFZG1` and `S918BXXSAFZH3` have version-locked
+detected firmware. `S918BXXSAFZG1`, `S918BXXSAFZH3`, and `S918NKSS8FZH2` have version-locked
 payloads and helpers; see [KernelSU Next AFZG1](kernelsu-next/README.md).
 
 From the repository root:
@@ -133,8 +148,8 @@ Credit goes to that project for the F731U app/payload baseline, closed helper
 flow, KernelSU late-load packaging, support manifest structure, and the porting
 procedure used as the starting point for this SM-S918B adaptation.
 
-This repository is an adaptation for `SM-S918B` / `dm3q` with profiles for
-`S918BXXSAFZG1` and `S918BXXSAFZH3`, not the original F731U target.
+This repository is an adaptation for `SM-S918B` and `SM-S918N` / `dm3q` with
+version-locked firmware profiles, not the original F731U target.
 
 ## 🇧🇷 É Brazuca também? 
 

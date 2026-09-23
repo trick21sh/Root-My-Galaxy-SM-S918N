@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "target-afzg1.h"
+#include "target-fzh2.h"
 
 /*
  * Validate every immutable property used to select kernel offsets.  A caller

@@ -11,7 +11,7 @@ all: $(OUTPUT)
 
 # Esta e a mesma unidade C ligada ao monolito por build_monolithic.py.
 $(OUTPUT): $(HELPER_DIR)/su_daemon.c $(HELPER_DIR)/target_guard.c \
-	$(HELPER_DIR)/target_guard.h $(HELPER_DIR)/target-afzg1.h
+	$(HELPER_DIR)/target_guard.h $(HELPER_DIR)/target-fzh2.h
 	$(CC) $(CFLAGS) -I$(HELPER_DIR) \
 		$(HELPER_DIR)/su_daemon.c $(HELPER_DIR)/target_guard.c \
 		-ldl -o $@

@@ -1,0 +1,21 @@
+{
+  "name": "S918N-FZG1 payload to dm3q-S918NKSS8FZH2",
+  "comment": "Recovered from the S918NKSS8FZH2 boot image kallsyms: ashmem_fops=0x0200d1b8, anon_pipe_buf_ops=0x01e7f160, kmalloc_caches=0x02064178.",
+  "symbol_fixes": [
+    {"offset": "0x0067ec", "type": "mov_imm16", "new_value": "0xd1b8"},
+    {"offset": "0x0068b8", "type": "mov_imm16", "new_value": "0x2647"},
+    {"offset": "0x006964", "type": "mov_imm16", "new_value": "0x2647"},
+    {"offset": "0x006b7c", "type": "mov_imm16", "new_value": "0x2647"},
+    {"offset": "0x006bdc", "type": "mov_imm16", "new_value": "0x2647"},
+    {"offset": "0x007470", "type": "mov_imm16", "new_value": "0xf160"},
+    {"offset": "0x007478", "type": "mov_imm16", "new_value": "0x069f"},
+    {"offset": "0x00754c", "type": "mov_imm16", "new_value": "0xf160"},
+    {"offset": "0x007554", "type": "mov_imm16", "new_value": "0x069f"},
+    {"offset": "0x00765c", "type": "mov_imm16", "new_value": "0xf160"},
+    {"offset": "0x00766c", "type": "mov_imm16", "new_value": "0x069f"},
+    {"offset": "0x00789c", "type": "mov_imm16", "new_value": "0xb687"},
+    {"offset": "0x0078ac", "type": "mov_imm16", "new_value": "0x4178"},
+    {"offset": "0x007af4", "type": "mov_imm16", "new_value": "0xf160"},
+    {"offset": "0x007afc", "type": "mov_imm16", "new_value": "0x069f"}
+  ]
+}
